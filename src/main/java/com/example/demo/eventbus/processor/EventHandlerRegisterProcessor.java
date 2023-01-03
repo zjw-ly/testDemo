@@ -25,6 +25,7 @@ public class EventHandlerRegisterProcessor implements BeanPostProcessor {
         return bean;
     }
 
+    //bean初始化完成之后都要调用 -> 这里适合穿插逻辑在spring bean初始化完成之后处理 （@Order代表执行顺序）
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         register(bean);

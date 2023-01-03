@@ -30,6 +30,8 @@ public class ServiceInterceptor {
 
     public Object coreServiceMonitor(ProceedingJoinPoint pjp, ServiceAspect serviceAspect) throws Throwable {
         long startTime = System.currentTimeMillis();
+
+        // 获取方法签名
         MethodSignature signature = (MethodSignature) pjp.getSignature();
         String methodName = signature.getDeclaringType().getSimpleName() + "#"
             + signature.getMethod().getName();
