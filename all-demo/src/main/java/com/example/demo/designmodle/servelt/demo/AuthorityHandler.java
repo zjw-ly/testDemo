@@ -1,8 +1,11 @@
 package com.example.demo.designmodle.servelt.demo;
 
+import com.example.demo.designmodle.servelt.AbstractChainHandler;
 import com.example.demo.designmodle.servelt.BaseChainHandler;
 import com.example.demo.designmodle.servelt.type.RequestContext;
 import com.example.demo.exception.Assert;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 权限校验责任链模式
@@ -10,10 +13,23 @@ import com.example.demo.exception.Assert;
  * @author zaochun.zjw
  * @date 2023/2/8
  */
-public class AuthorityHandler implements BaseChainHandler {
+@Data
+@NoArgsConstructor
+public class AuthorityHandler extends AbstractChainHandler implements BaseChainHandler {
+
+    private Integer order;
+
+    public static AuthorityHandler getInstance(Integer order){
+        return new AuthorityHandler(order);
+    }
+
+    public AuthorityHandler (Integer order){
+        this.order = order;
+    }
 
     @Override
     public void executeHandler(RequestContext gateWayContext) {
-        Assert.isFalse(gateWayContext.isInWriteList(),"","");
+        System.out.println("权限校验");
+        Assert.isTrue(gateWayContext.isInWriteList(),"","");
     }
 }

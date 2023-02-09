@@ -4,7 +4,7 @@ import com.example.demo.designmodle.servelt.demo.AuthorityHandler;
 import com.example.demo.designmodle.servelt.demo.FuseHandler;
 import com.example.demo.designmodle.servelt.type.RequestContext;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Supplier;
@@ -20,10 +20,10 @@ public class ChainDiscussHandler {
     /**
      * invoke handler chain list
      */
-    private static final List<BaseChainHandler> invokeHandlerChainList = new LinkedList<BaseChainHandler>() {
+    private static final List<AbstractChainHandler> invokeHandlerChainList = new LinkedList<AbstractChainHandler>() {
         {
-            add(new AuthorityHandler());
-            add(new FuseHandler());
+            add(AuthorityHandler.getInstance(15));
+            add(FuseHandler.getInstance(14));
         }
     };
 
@@ -41,6 +41,7 @@ public class ChainDiscussHandler {
 
     public void invokeHandler(RequestContext context) {
         executeHandler(() -> {
+            invokeHandlerChainList.sort(AbstractChainHandler::compareTo);
             invokeHandlerChainList.stream().forEach(handler -> handler.executeHandler(context));
             return true;
         });
@@ -55,5 +56,12 @@ public class ChainDiscussHandler {
 
     public void executeHandler(Supplier<Boolean> supplier) {
         supplier.get();
+    }
+
+    public static void main(String[] args) {
+        ChainDiscussHandler handler = new ChainDiscussHandler();
+        RequestContext context = new RequestContext();
+        context.setUserId("111");
+        handler.invokeHandler(context);
     }
 }

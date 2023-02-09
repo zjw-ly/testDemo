@@ -1,6 +1,7 @@
 package com.example.demo.designmodle.servelt.type;
 
 import lombok.Data;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -33,7 +34,11 @@ public class RequestContext {
      *
      * @return
      */
-    public boolean isInWriteList(){
+    public boolean isInWriteList() {
+        if (CollectionUtils.isEmpty(writeList)) {
+            return true;
+        }
+
         return writeList.contains(userId);
     }
 }
