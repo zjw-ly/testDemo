@@ -21,7 +21,7 @@
         <module>self-starter</module>
         <module>all-demo</module>
         <module>my-rpc-framework</module>
-        <module>ddd-demo</module>
+        <module>self-sdk</module>
     </modules>
 
     <properties>

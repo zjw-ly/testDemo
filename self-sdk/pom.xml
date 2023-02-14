@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>demo</artifactId>
+        <groupId>com.example</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>self-sdk</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>self-ab-sdk</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+
+        <!-- second party start -->
+        <version.self-ab-sdk-start>1.0.0</version.self-ab-sdk-start>
+        <!-- second party end -->
+
+        <!-- framework start -->
+        <version.spring-boot>1.5.22.RELEASE</version.spring-boot>
+        <!-- framework end -->
+
+        <!-- plugin start -->
+        <version.maven-source-plugin>3.0.1</version.maven-source-plugin>
+        <version.versions-maven-plugin>2.1</version.versions-maven-plugin>
+        <!-- plugin end -->
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- framework start -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${version.spring-boot}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- framework end -->
+
+            <!-- second party start -->
+            <dependency>
+                <groupId>com.alihealth</groupId>
+                <artifactId>self-ab-sdk</artifactId>
+                <version>${version.self-ab-sdk-start}</version>
+            </dependency>
+            <!-- second party end -->
+
+            <!-- test start -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${version.junit}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- test end -->
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${version.maven-source-plugin}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <!-- mvn versions:set -DoldVersion=* -DnewVersion=0.0.1-SNAPSHOT -DprocessAllModules=true -DallowSnapshots=true -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${version.versions-maven-plugin}</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
