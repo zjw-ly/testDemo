@@ -20,6 +20,7 @@ public class MurMurHashUtil {
     public static int routing(long userId, String salt) {
         byte[] hashKey;
         try {
+            // 第一步 变成字节序列
             hashKey = (userId + salt).getBytes("utf-8");
         } catch (Throwable throwable) {
             throw new RuntimeException(throwable.getCause());
@@ -28,11 +29,14 @@ public class MurMurHashUtil {
         int hash = guavaMurmurHash3_32(hashKey);
         int keyHashCode = Math.abs(hash);
 
+        //这里是为了保持精度 整个流量的虚拟份数 设置为 100 * 10000
         return keyHashCode % 1000000;
     }
 
     private static int guavaMurmurHash3_32(byte[] key) {
         int seed = 1526958062;
+        //2. 使用给定的种子值返回实现 32 位 murmur3 算法的哈希函数
+        //3. 使用该hash函数得出：一个hashcode ，并转化为int值
         return Hashing.murmur3_32(seed).hashBytes(key).asInt();
     }
 }

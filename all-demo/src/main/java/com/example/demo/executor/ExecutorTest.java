@@ -1,6 +1,7 @@
 package com.example.demo.executor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -52,6 +53,21 @@ public class ExecutorTest {
     }
 
     public static void main(String[] args) {
-        get();
+        //get();
+
+        runThread();
+    }
+
+    public static void runThread(){
+        ThreadPoolConfig threadPoolConfig = new ThreadPoolConfig();
+        ExecutorService asyncExecutor = threadPoolConfig.getAsyncExecutor();
+
+        List<Long> alongs = Arrays.asList(1L,2L,3L,3L);
+        asyncExecutor.submit(runLong(alongs));
+    }
+
+    public static Runnable runLong(List<Long> list){
+        System.out.println(list.size());
+        return null;
     }
 }
