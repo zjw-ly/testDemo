@@ -33,7 +33,7 @@ public class AkkaExecutor implements Executor {
 
     @Override
     public void execute(Runnable runnable) {
-
+        runnableActor.tell(runnable, ActorRef.noSender());
     }
 
     private static class RunnableActor extends UntypedActor {
