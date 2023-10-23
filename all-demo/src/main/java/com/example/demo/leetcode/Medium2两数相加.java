@@ -6,7 +6,7 @@ package com.example.demo.leetcode;
  * @author zaochun.zjw
  * @date 2023/4/13
  */
-public class Medium2 {
+public class Medium2两数相加 {
 
     public static class ListNode {
 

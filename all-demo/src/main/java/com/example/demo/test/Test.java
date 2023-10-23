@@ -1,18 +1,9 @@
 package com.example.demo.test;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.schedulerx.shade.org.apache.commons.collections.list.AbstractLinkedList;
-import com.google.common.util.concurrent.*;
+import org.joda.time.DateTime;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 测试
@@ -22,11 +13,74 @@ import java.util.stream.Collectors;
  */
 public class Test {
 
+    public static class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+//    public static void main(String[] args) {
+//
+//        String str = "**用户健康卡已延期记录:**  \n\n**——————————————** \n\n订单号: 默认直塞赠金场景 \n\n 过期金额: 0.01元 \n\n  赠金类型: 买返赠金 \n\n 是否已延期: 已延期 \n\n  延期时间: 2023-06-26 17:12:58 \n\n**——————————————** \n\n订单号: 默认直塞赠金场景 \n\n 过期金额: 0.01元 \n\n  赠金类型: 买返赠金 \n\n 是否已延期: 已延期 \n\n  延期时间: 2023-06-26 17:12:58 \n\n**——————————————** \n\n订单号: 默认直塞赠金场景 \n\n 过期金额: 0.01元 \n\n  赠金类型: 买返赠金 \n\n 是否已延期: 已延期 \n\n  延期时间: 2023-06-26 17:12:58 \n\n**——————————————** \n\n订单号: 默认直塞赠金场景 \n\n 过期金额: 0.01元 \n\n  赠金类型: 买返赠金 \n\n 是否已延期: 已延期 \n\n  延期时间: 2023-06-26 17:12:58 \n\n**——————————————** \n\n订单号: 默认直塞赠金场景 \n\n 过期金额: 0.01元 \n\n  赠金类型: 活动赠金 \n\n 是否已延期: 已延期 \n\n  延期时间: 2023-06-26 17:12:58 \n\n**——————————————** \n\n订单号: 赠送 \n\n 过期金额: 0.02元 \n\n  赠金类型: 活动赠金 \n\n 是否已延期: 已延期 \n\n  延期时间: 2023-06-26 17:12:58 \n\n**——————————————** \n\n订单号: 默认直塞赠金场景 \n\n 过期金额: 0.01元 \n\n  赠金类型: 活动赠金 \n\n 是否已延期: 已延期 \n\n  延期时间: 2023-06-26 17:12:58 \n\n**——————————————** \n\n订单号: 3269777763105387302 \n\n 过期金额: 0.02元 \n\n  赠金类型: 充值赠金 \n\n 是否已延期: 已延期 \n\n  延期时间: 2023-06-26 17:12:58 \n\n";
+//
+//        System.out.println(str);
+//        //System.out.println("**用户健康卡赠金延期明细: **  \n\n **需要延期健康卡赠金的总金额:0.07元** \n\n **需要延期的买返总过期金额:0元** \n\n **需要延期的直塞总过期金额:0.04元** \n\n **需要延期的充增总过期金额:0.03元** \n\n**——————————————** \n\n订单号: 默认赠金场景 \n\n 过期金额: 0.01元 \n\n  赠金类型: DIRECT \n\n**——————————————** \n\n订单号: 赠送 \n\n 过期金额: 0.02元 \n\n  赠金类型: DIRECT \n\n**——————————————** \n\n订单号: 默认赠金场景 \n\n 过期金额: 0.01元 \n\n  赠金类型: DIRECT \n\n**——————————————** \n\n订单号: 3198739753396387302 \n\n 过期金额: 0.01元 \n\n  赠金类型: RECHARGE \n\n**——————————————** \n\n订单号: 3269777763105387302 \n\n 过期金额: 0.02元 \n\n  赠金类型: RECHARGE \n\n");
+//    }
+
+    public int[] sums(int[] sum, int target) {
+        Map<Integer, Integer> hash = new HashMap<>();
+
+        for (int i = 0; i < sum.length; i++) {
+            hash.put(sum[i], i);
+
+            if (hash.containsKey(target - sum[i])) {
+                return new int[]{hash.get(target - sum[i]), i};
+            }
+        }
+
+        throw new RuntimeException("xxx");
+    }
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode pre = new ListNode(0);
+        ListNode cur = pre;
+
+        int carry = 0;
+        while (l1 != null || l2 != null){
+            int x = l1!=null ? l1.val : 0;
+            int y = l2 != null ? l2.val : 0;
+            int sum = (x + y + carry) % 10;
+
+            carry = (x + y + carry) % 1;
+            cur.next = new ListNode(carry);
+            cur = cur.next;
+            if(l1 != null) l1 = l1.next;
+            if(l2!=null) l2 = l2.next;
+        }
+
+        if(carry == 1){
+            cur.next = new ListNode(carry);
+        }
+
+        return pre;
+    }
+
+
     public static void main(String[] args) {
 
-        String str = "**用户健康卡已延期记录:**  \n\n**——————————————** \n\n订单号: 默认直塞赠金场景 \n\n 过期金额: 0.01元 \n\n  赠金类型: 买返赠金 \n\n 是否已延期: 已延期 \n\n  延期时间: 2023-06-26 17:12:58 \n\n**——————————————** \n\n订单号: 默认直塞赠金场景 \n\n 过期金额: 0.01元 \n\n  赠金类型: 买返赠金 \n\n 是否已延期: 已延期 \n\n  延期时间: 2023-06-26 17:12:58 \n\n**——————————————** \n\n订单号: 默认直塞赠金场景 \n\n 过期金额: 0.01元 \n\n  赠金类型: 买返赠金 \n\n 是否已延期: 已延期 \n\n  延期时间: 2023-06-26 17:12:58 \n\n**——————————————** \n\n订单号: 默认直塞赠金场景 \n\n 过期金额: 0.01元 \n\n  赠金类型: 买返赠金 \n\n 是否已延期: 已延期 \n\n  延期时间: 2023-06-26 17:12:58 \n\n**——————————————** \n\n订单号: 默认直塞赠金场景 \n\n 过期金额: 0.01元 \n\n  赠金类型: 活动赠金 \n\n 是否已延期: 已延期 \n\n  延期时间: 2023-06-26 17:12:58 \n\n**——————————————** \n\n订单号: 赠送 \n\n 过期金额: 0.02元 \n\n  赠金类型: 活动赠金 \n\n 是否已延期: 已延期 \n\n  延期时间: 2023-06-26 17:12:58 \n\n**——————————————** \n\n订单号: 默认直塞赠金场景 \n\n 过期金额: 0.01元 \n\n  赠金类型: 活动赠金 \n\n 是否已延期: 已延期 \n\n  延期时间: 2023-06-26 17:12:58 \n\n**——————————————** \n\n订单号: 3269777763105387302 \n\n 过期金额: 0.02元 \n\n  赠金类型: 充值赠金 \n\n 是否已延期: 已延期 \n\n  延期时间: 2023-06-26 17:12:58 \n\n";
-
-        System.out.println(str);
-        //System.out.println("**用户健康卡赠金延期明细: **  \n\n **需要延期健康卡赠金的总金额:0.07元** \n\n **需要延期的买返总过期金额:0元** \n\n **需要延期的直塞总过期金额:0.04元** \n\n **需要延期的充增总过期金额:0.03元** \n\n**——————————————** \n\n订单号: 默认赠金场景 \n\n 过期金额: 0.01元 \n\n  赠金类型: DIRECT \n\n**——————————————** \n\n订单号: 赠送 \n\n 过期金额: 0.02元 \n\n  赠金类型: DIRECT \n\n**——————————————** \n\n订单号: 默认赠金场景 \n\n 过期金额: 0.01元 \n\n  赠金类型: DIRECT \n\n**——————————————** \n\n订单号: 3198739753396387302 \n\n 过期金额: 0.01元 \n\n  赠金类型: RECHARGE \n\n**——————————————** \n\n订单号: 3269777763105387302 \n\n 过期金额: 0.02元 \n\n  赠金类型: RECHARGE \n\n");
+        System.out.println(Integer.valueOf("9646324351"));
+        System.out.println(DateTime.now().plusHours(1).toDate());
     }
+
 }

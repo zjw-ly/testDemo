@@ -6,7 +6,7 @@ package com.example.demo.leetcode;
  * @author zaochun.zjw
  * @date 2023/4/13
  */
-public class Easy2404 {
+public class Easy2404出现最频繁的偶数 {
 
     public static int mostFrequentEven(int[] nums) {
 
