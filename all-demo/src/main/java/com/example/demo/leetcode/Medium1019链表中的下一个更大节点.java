@@ -10,7 +10,7 @@ import java.util.Stack;
  * @author zaochun.zjw
  * @date 2023/4/10
  */
-public class Medium1019 {
+public class Medium1019链表中的下一个更大节点 {
 
     public static class ListNode {
 

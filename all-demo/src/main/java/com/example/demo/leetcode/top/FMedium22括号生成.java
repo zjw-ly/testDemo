@@ -1,4 +1,4 @@
-package com.example.demo.leetcode;
+package com.example.demo.leetcode.top;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +20,11 @@ import java.util.List;
  * @author zaochun.zjw
  * @date 2023/10/19
  */
-public class TMedium22括号生成 {
+public class FMedium22括号生成 {
 
     public static void main(String[] args) {
-        TMedium22括号生成 TMedium22括号生成 = new TMedium22括号生成();
-        System.out.println(TMedium22括号生成.generateParenthesis(2));
+        FMedium22括号生成 FMedium22括号生成 = new FMedium22括号生成();
+        System.out.println(FMedium22括号生成.generateParenthesis(3));
     }
 
     private List<String> res;
