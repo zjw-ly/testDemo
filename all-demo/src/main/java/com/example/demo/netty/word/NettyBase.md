@@ -18,3 +18,27 @@
 
 三 jdk future 与netty future 、 promise区别
 ![img.png](img.png)
+
+
+四 netty的优势
+1) Netty 抽象出两组线程池BossGroup和WorkerGroup，BossGroup专门负责接收客户端的连接, WorkerGroup专门负责网络的读写；
+2) BossGroup和WorkerGroup类型都是NioEventLoopGroup，里面包含很多个NioEventLoop;
+3) NioEventLoopGroup 相当于一个事件循环线程组, 这个组中含有多个事件循环线程 ， 每一个事件循环线程是 NioEventLoop;
+4) 每个NioEventLoop都有一个selector , 用于监听注册在其上的socketChannel的网络通讯；
+5) 每个Boss NioEventLoop线程内部循环执行的步骤有 3 步
+   a、处理accept事件 , 与client 建立连接 , 生成 NioSocketChannel；
+   b、将NioSocketChannel注册到某个worker NIOEventLoop上的selector；
+   c、处理任务队列的任务 ， 即runAllTasks；
+6) 每个worker NIOEventLoop线程循环执行的步骤
+   a、轮询注册到自己selector上的所有NioSocketChannel 的read, write事件；
+   b、处理 I/O 事件， 即read , write 事件， 在对应NioSocketChannel 处理业务；
+   c、runAllTasks处理任务队列TaskQueue的任务 ，一些耗时的业务处理一般可以放入TaskQueue中慢慢处理，这样不影响数据在 pipeline 中的流动处理；
+7) 每个worker NIOEventLoop处理NioSocketChannel业务时，会使用 pipeline (管道)，管道中维护了很多 handler，处理器用来处理 channel 中的数据。
+   总结下来Netty能做到高并发、高性能，他的架构设计有如下特点：
+   1、主从Reactor线程模型
+   2、NIO多路复用非阻塞
+   3、无锁串行化设计思想
+   4、零拷贝技术的使用
+   5、ByteBuf内存池设计
+   6、灵活的TCP参数配置能力
+   7、并发优化
