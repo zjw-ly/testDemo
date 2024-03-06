@@ -1,8 +1,7 @@
-package com.example.demo.leetcode;
+package com.example.demo.leetcode.top;
 
 import com.example.demo.leetcode.common.ListNode;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -71,27 +70,43 @@ public class THard25k个一组反转链表 {
         return dummy.next;
     }
 
+    public ListNode reverseKGroups(ListNode head, int k) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode pre = dummy;
+        ListNode end = dummy;
+        while (end.next != null) {
+            for (int i = 0; i < k; i++) end = end.next;
+            if (end.next == null) break;
+            ListNode start = pre.next;
+            ListNode next = end.next;
+            end.next = null;
+            pre.next = reverse(start);
+            start.next = next;
+            pre = start;
+            end = next;
+
+        }
+
+        return dummy.next;
+    }
+
     /**
      * 翻转链表
      *
      * @param head 翻转链表
      * @return
      */
-    public ListNode reverse(ListNode head) {
-        List<Integer> list = new ArrayList<>();
-        while (head != null) {
-            list.add(head.val);
-            head = head.next;
+    private ListNode reverse(ListNode head) {
+        ListNode pre = null;
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode next = curr.next;
+            curr.next = pre;
+            pre = curr;
+            curr = next;
         }
-
-        ListNode listNode = new ListNode();
-        ListNode pre = listNode;
-        for (int i = list.size() - 1; i >= 0; i--) {
-            pre.next = new ListNode(list.get(i));
-            pre = pre.next;
-        }
-
-        return listNode.next;
+        return pre;
     }
 }
 

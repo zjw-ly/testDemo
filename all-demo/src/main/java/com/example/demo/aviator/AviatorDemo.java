@@ -35,7 +35,7 @@ public class AviatorDemo {
     public void test3() {
         Map<String, Object> env = new HashMap<>();
         env.put("name", "ruilin.shao");
-        String str = "'hello ' + name";
+        String str = "'hello' + name";
         String result = (String) AviatorEvaluator.execute(str, env);
         System.out.println(result);
         //写法二

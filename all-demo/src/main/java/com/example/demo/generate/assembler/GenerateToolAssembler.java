@@ -139,6 +139,7 @@ public class GenerateToolAssembler {
             }
 
             try {
+                // 设置禁止检查
                 field.setAccessible(true);
                 Object object = field.get(t);
 

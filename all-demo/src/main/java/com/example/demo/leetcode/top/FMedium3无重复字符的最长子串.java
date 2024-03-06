@@ -1,6 +1,7 @@
-package com.example.demo.leetcode;
+package com.example.demo.leetcode.top;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 无重复字符的最长子串 (滑动窗口标记启示、结束位置)
@@ -8,7 +9,7 @@ import java.util.HashMap;
  * @author zaochun.zjw
  * @date 2023/10/18
  */
-public class Medium3无重复字符的最长子串 {
+public class FMedium3无重复字符的最长子串 {
 
     /**
      * 输入: s = "abcabcbb"
@@ -37,30 +38,21 @@ public class Medium3无重复字符的最长子串 {
      * @param str 字符
      * @return 子串
      */
-    public static int getRepeatLength(String str) {
-        char[] chars = str.toCharArray();
-        int start = 0;
-        int end;
-        int max = 0;
-        HashMap<Character, Integer> map = new HashMap<>();
-        for (int i = 0; i < chars.length; i++) {
-            end = i;
-
-            if (map.containsKey(chars[end]) && start <= map.get(chars[end])) {
-                start = map.get(chars[end]) + 1;
-            } else {
-                int a = end - start + 1;
-                if (a > max) {
-                    max = a;
-                }
+    public static int getRepeatLength(String s) {
+        int n = s.length(), ans = 0;
+        Map<Character, Integer> map = new HashMap<>();
+        for (int end = 0, start = 0; end < n; end++) {
+            char alpha = s.charAt(end);
+            if (map.containsKey(alpha)) {
+                start = Math.max(map.get(alpha), start);
             }
-            map.put(chars[i], i);
+            ans = Math.max(ans, end - start + 1);
+            map.put(s.charAt(end), end + 1);
         }
-
-        return max;
+        return ans;
     }
 
     public static void main(String[] args) {
-        System.out.println(getRepeatLength("abcabcbb"));
+        System.out.println(getRepeatLength("abcabcdb"));
     }
 }
