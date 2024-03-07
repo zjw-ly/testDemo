@@ -1,4 +1,4 @@
-package com.example.demo.leetcode.base.slidewindow;
+package com.example.demo.leetcode.types.slidewindow;
 
 import java.util.HashMap;
 import java.util.Map;
