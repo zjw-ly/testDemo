@@ -8,7 +8,7 @@ import com.example.demo.leetcode.common.ListNode;
  * @author zaochun.zjw
  * @date 2024/3/7
  */
-public class FMedium142环形链表2 {
+public class TMedium142环形链表2 {
 
     public static ListNode detectCycle(ListNode head) {
         ListNode a = head.next;
