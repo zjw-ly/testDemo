@@ -1,14 +1,14 @@
-package com.example.demo.leetcode.test;
+package com.example.demo.leetcode.types.tree;
 
 import com.example.demo.leetcode.common.TreeNode;
-import com.example.demo.leetcode.types.tree.Medium437路径总和;
 
 /**
+ * 最大路径之和
+ *
  * @author zaochun.zjw
- * @date 2024/3/5
+ * @date 2024/3/12
  */
-public class Test {
-
+public class FHard124最大路径之和 {
     int max;
 
     public int maxPathSum(TreeNode root) {
@@ -26,11 +26,11 @@ public class Test {
         int right = diG(treeNode.right);
 
         if (left < 0) {
-            return 0;
+            left =  0;
         }
 
         if (right < 0) {
-            return 0;
+            right = 0;
         }
 
         max = Math.max(max, treeNode.val + left + right);
@@ -38,16 +38,10 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        Integer a = -2000000000;
-        System.out.println(a - 294967296);
+        TreeNode treeNode = new TreeNode(2);
+        treeNode.left = new TreeNode(-1);
 
-        TreeNode root = new TreeNode(-10);
-        root.left = new TreeNode(9);
-        root.right = new TreeNode(20);
-        root.right.left = new TreeNode(15);
-        root.right.right = new TreeNode(7);
-
-        Test test = new Test();
-        System.out.println(test.maxPathSum(root));
+        FHard124最大路径之和 fHard124最大路径之和 = new FHard124最大路径之和();
+        System.out.println(fHard124最大路径之和.diG(treeNode));
     }
 }
