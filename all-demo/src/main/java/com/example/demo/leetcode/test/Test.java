@@ -1,7 +1,6 @@
 package com.example.demo.leetcode.test;
 
-import com.example.demo.leetcode.common.TreeNode;
-import com.example.demo.leetcode.types.tree.Medium437路径总和;
+import java.util.*;
 
 /**
  * @author zaochun.zjw
@@ -9,45 +8,57 @@ import com.example.demo.leetcode.types.tree.Medium437路径总和;
  */
 public class Test {
 
-    int max;
-
-    public int maxPathSum(TreeNode root) {
-        max = Integer.MIN_VALUE;
-        diG(root);
-        return max;
-    }
-
-    public int diG(TreeNode treeNode) {
-        if (treeNode == null) {
-            return 0;
-        }
-
-        int left = diG(treeNode.left);
-        int right = diG(treeNode.right);
-
-        if (left < 0) {
-            return 0;
-        }
-
-        if (right < 0) {
-            return 0;
-        }
-
-        max = Math.max(max, treeNode.val + left + right);
-        return Math.max(left, right) + treeNode.val;
-    }
-
     public static void main(String[] args) {
-        Integer a = -2000000000;
-        System.out.println(a - 294967296);
+    }
 
-        TreeNode root = new TreeNode(-10);
-        root.left = new TreeNode(9);
-        root.right = new TreeNode(20);
-        root.right.left = new TreeNode(15);
-        root.right.right = new TreeNode(7);
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
 
-        Test test = new Test();
-        System.out.println(test.maxPathSum(root));
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for (int i = 0; i < prerequisites.length; i++) {
+            List<Integer> tmp = map.getOrDefault(prerequisites[i][1], new ArrayList<>());
+            tmp.add(prerequisites[i][0]);
+            map.put(prerequisites[i][1], tmp);
+        }
+
+        int[] nums = new int[numCourses];
+        for (Map.Entry<Integer, List<Integer>> entry : map.entrySet()) {
+            for (Integer value : entry.getValue()) {
+                nums[value] = nums[value]++;
+            }
+        }
+
+        int inSize = 0;
+        ArrayDeque<Integer> queue = new ArrayDeque<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (nums[i] == 0) {
+                inSize++;
+                queue.push(nums[i]);
+            }
+        }
+
+        if (inSize == numCourses) {
+            return true;
+        }
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                Integer poll = queue.poll();
+                List<Integer> list = map.get(poll);
+                for (Integer x : list) {
+                    nums[x] = nums[x]--;
+                    if (nums[x] == 0) {
+                        queue.push(x);
+                        inSize++;
+                    }
+                }
+
+                if (inSize == numCourses) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
