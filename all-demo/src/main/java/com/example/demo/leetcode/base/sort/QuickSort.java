@@ -3,7 +3,7 @@ package com.example.demo.leetcode.base.sort;
 import java.util.Arrays;
 
 /**
- * 快速排序
+ * 快速排序 递归依次找到基准元素应该在整个数组中的位置，最左元素作为基准元素，动态调整所在位置
  *
  * @author zaochun.zjw
  * @date 2023/10/23

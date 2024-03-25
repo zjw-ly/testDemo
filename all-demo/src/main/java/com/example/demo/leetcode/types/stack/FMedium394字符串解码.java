@@ -35,7 +35,9 @@ public class FMedium394字符串解码 {
 
     public static void main(String[] args) {
         FMedium394字符串解码 tmp = new FMedium394字符串解码();
-        System.out.println(tmp.decodeString("[z]2[2[y]pq4[2[jk]e1[f]]]ef"));
+        //[z]2[2[y]pq4[2[jk]e1[f]]]ef
+        //yypqjkjkefjkjkefjkjkefjkjkefyypqjkjkefjkjkefjkjkefjkjkefef
+        System.out.println(tmp.decodeString("3[a2[c]]"));
     }
 
     //构建辅助栈 stack， 遍历字符串 s 中每个字符 c；
@@ -53,22 +55,20 @@ public class FMedium394字符串解码 {
     public String decodeString(String s) {
         StringBuilder res = new StringBuilder();
         int numTmp = 0;
-        LinkedList<Integer> stack_multi = new LinkedList<>();
-        LinkedList<String> stack_res = new LinkedList<>();
-        for(Character c : s.toCharArray()) {
-            if(c == '[') {
-                stack_multi.addLast(numTmp);
-                stack_res.addLast(res.toString());
+        LinkedList<Integer> numStack = new LinkedList<>();
+        LinkedList<String> strStack = new LinkedList<>();
+        for (Character c : s.toCharArray()) {
+            if (c == '[') {
+                numStack.addLast(numTmp);
+                strStack.addLast(res.toString());
                 numTmp = 0;
                 res = new StringBuilder();
-            }
-            else if(c == ']') {
+            } else if (c == ']') {
                 StringBuilder tmp = new StringBuilder();
-                int num = stack_multi.removeLast();
-                for(int i = 0; i < num; i++) tmp.append(res);
-                res = new StringBuilder(stack_res.removeLast() + tmp);
-            }
-            else if(c >= '0' && c <= '9') numTmp = numTmp * 10 + Integer.parseInt(c + "");
+                int num = numStack.removeLast();
+                for (int i = 0; i < num; i++) tmp.append(res);
+                res = new StringBuilder(strStack.removeLast() + tmp);
+            } else if (c >= '0' && c <= '9') numTmp = numTmp * 10 + Integer.parseInt(c + "");
             else res.append(c);
         }
         return res.toString();
