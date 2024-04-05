@@ -61,11 +61,7 @@ public class F必看背包问题 {
             // 从小到大遍历数据
             for (int j = weights[i]; j <= W; j++) {
                 // 状态转移方程
-                if( j < weights[i]){
-                    dp[j] = dp[j];
-                }else{
-                    dp[j] = Math.max(dp[j], dp[j - weights[i]] + values[i]);
-                }
+                dp[j] = Math.max(dp[j], dp[j - weights[i]] + values[i]);
             }
         }
 
