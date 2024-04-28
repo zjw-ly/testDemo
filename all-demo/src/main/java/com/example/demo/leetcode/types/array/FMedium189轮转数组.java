@@ -55,6 +55,8 @@ public class FMedium189轮转数组 {
         }
     }
 
+    /** 思路翻转数组 */
+
     public static void main(String[] args) {
         //int[] num = new int[]{1, 2, 3, 4, 5, 6, 7};
         int[] num = new int[]{-1};
