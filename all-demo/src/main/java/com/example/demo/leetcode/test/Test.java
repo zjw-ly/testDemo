@@ -1,65 +1,76 @@
 package com.example.demo.leetcode.test;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Scanner;
 
 /**
- * * 轮转数组
- * * <p>
- * * 给定一个整数数组 nums，将数组中的元素向右轮转 k 个位置，其中 k 是非负数。
- * * <p>
- * * <p>
- * * <p>
- * * 示例 1:
- * * <p>
- * * 输入: nums = [1,2,3,4,5,6,7], k = 3
- * * 输出: [5,6,7,1,2,3,4]
- * * 解释:
- * * 向右轮转 1 步: [7,1,2,3,4,5,6]
- * * 向右轮转 2 步: [6,7,1,2,3,4,5]
- * * 向右轮转 3 步: [5,6,7,1,2,3,4]
- * * 示例 2:
- * * <p>
- * * 输入：nums = [-1,-100,3,99], k = 2
- * * 输出：[3,99,-1,-100]
- * * 解释:
- * * 向右轮转 1 步: [99,-1,-100,3]
- * * 向右轮转 2 步: [3,99,-1,-100]
- * * <p>
- * * 提示：
- * * <p>
- * * 1 <= nums.length <= 105
- * * -231 <= nums[i] <= 231 - 1
- * * 0 <= k <= 105
- * * 你可以使用空间复杂度为 O(1) 的 原地 算法解决这个问题吗？
- *
- * @author zaochun.zjw
  * @date 2024/3/5
  */
 public class Test {
 
     public static void main(String[] args) {
-        Test test = new Test();
-        int[] num = new int[]{1,2,3,4,5,6,7};
-        test.rotate(num,3);
-        Arrays.stream(num).forEach(System.out::println);
-    }
-
-    public void rotate(int[] nums, int k) {
-        k = k % nums.length;
-        if (k > 0) {
-            reverse(nums, nums.length - k, nums.length - 1);
-            reverse(nums, 0, nums.length - k - 1);
-            reverse(nums, 0, nums.length - 1);
+        Scanner scanner = new Scanner(System.in);
+        int nextInt = scanner.nextInt();
+        int[] sliver = new int[nextInt];
+        for (int i = 0; i < nextInt; i++) {
+            sliver[i] = scanner.nextInt();
         }
+
+        System.out.println(getMaxWeight(sliver));
     }
 
-    public void reverse(int[] nums, int start, int end) {
-        while (start <= end) {
-            int tmp = nums[start];
-            nums[start] = nums[end];
-            nums[end] = tmp;
-            start++;
-            end--;
+    public static PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(new Comparator<Integer>() {
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            return o2 - o1;
+        }
+    });
+
+    public static int getMaxWeight(int[] sliver) {
+
+
+        for (int i = 0; i < sliver.length; i++) {
+            priorityQueue.offer(sliver[i]);
+        }
+
+        while (!priorityQueue.isEmpty()) {
+            ArrayList<Integer> tmp = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                if (priorityQueue.isEmpty()) {
+                    break;
+                }
+                tmp.add(priorityQueue.poll());
+            }
+
+            if (tmp.size() < 3) {
+                if (tmp.size() == 0) {
+                    return 0;
+                }
+                if (tmp.size() == 1) {
+                    return tmp.get(0);
+                }
+
+                return Math.max(tmp.get(0), tmp.get(1));
+            }
+
+            melt( tmp);
+        }
+
+        return 0;
+    }
+
+    /**
+     * 熔炼
+     *
+     * @param tmp
+     */
+    public static void melt(ArrayList<Integer> tmp) {
+        for (int i = 0; i < tmp.size() -1; i++) {
+            if (tmp.get(i) - tmp.get(i + 1) > 0) {
+                priorityQueue.offer(tmp.get(i) - tmp.get(i + 1));
+            }
         }
     }
 }

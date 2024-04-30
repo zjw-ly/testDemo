@@ -23,7 +23,7 @@ import java.util.Map;
  * @date 2024/3/9
  */
 public class TMedium138复制带随机指针的链表 {
-    class Node {
+    public class Node {
         int val;
         Node next;
         Node random;

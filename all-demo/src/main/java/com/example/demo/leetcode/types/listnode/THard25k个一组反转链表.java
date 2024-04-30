@@ -6,7 +6,7 @@ import com.example.demo.leetcode.common.ListNode;
  * @author zaochun.zjw
  * @date 2024/3/8
  */
-public class Hard25k个一组反转链表 {
+public class THard25k个一组反转链表 {
 
     public static ListNode reverseKGroup(ListNode head, int k) {
         ListNode dummy = new ListNode();
