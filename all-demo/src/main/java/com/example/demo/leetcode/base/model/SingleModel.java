@@ -10,14 +10,14 @@ public class SingleModel {
 
     private static volatile SingleModel singleModel;
 
-    private SingleModel(){
+    private SingleModel() {
     }
 
     public static SingleModel getInstance() {
 
-        synchronized (singleModel) {
-            if (singleModel == null) {
-                synchronized (singleModel) {
+        if (singleModel == null) {
+            synchronized (singleModel) {
+                if (singleModel == null) {
                     singleModel = new SingleModel();
                 }
             }

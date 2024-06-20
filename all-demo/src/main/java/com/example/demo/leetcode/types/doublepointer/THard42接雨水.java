@@ -41,7 +41,31 @@ public class THard42接雨水 {
         return ans;
     }
 
+    public static int trapDp(int[] height) {
+        int[] leftDp = new int[height.length];
+        int[] rightDp = new int[height.length];
+        for (int i = 1; i < height.length; i++) {
+            leftDp[i] = Math.max(leftDp[i - 1], height[i - 1]);
+        }
+
+        for (int j = height.length - 2; j >= 0; j--) {
+            rightDp[j] = Math.max(rightDp[j + 1], height[j + 1]);
+        }
+
+        int res = 0;
+        for (int i = 1; i < height.length - 1; i++) {
+            int min = Math.min(leftDp[i], rightDp[i]);
+            if (height[i] < min) {
+                res += (min - height[i]);
+            }
+        }
+
+        return res;
+    }
+
     public static void main(String[] args) {
-        System.out.println(trap(new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}));
+        int[] num = new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+        System.out.println(trap(num));
+        System.out.println(trapDp(num));
     }
 }

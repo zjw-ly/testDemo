@@ -29,9 +29,9 @@ public class Hard4寻找正序数组中的两个中位数 {
 //        int n = nums1.length;
 //        int m = nums2.length;
 //        int nums1Left = 0;
-//        int min = Integer.MAX_VALUE;
+//        int Main = Integer.MAX_VALUE;
 //        if(nums1[0] < nums2[0]){
-//            min = nums1[1];
+//            Main = nums1[1];
 //
 //        }
 //    }

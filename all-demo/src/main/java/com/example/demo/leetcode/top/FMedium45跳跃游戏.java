@@ -33,23 +33,22 @@ package com.example.demo.leetcode.top;
 public class FMedium45跳跃游戏 {
 
     public static void main(String[] args) {
-        System.out.println(jumpTest(new int[]{1,2,0,0,0,0,5}));
+        System.out.println(jump(new int[]{2, 3, 4, 1, 1, 1, 2}));
     }
 
-    public static int jumpTest(int[] nums) {
+    public static int jumpTest(int[] num) {
         int location = 0;
-        int result = 0;
-        for (int i = 0; i < nums.length -1; i++) {
-            if (i + nums[i] > location) {
-                location = i + nums[i];
-                result ++;
-                if(i + nums[i] >= nums.length-1){
-                    break;
-                }
+        int res = 0;
+        int end = 0;
+        for (int i = 0; i < num.length; i++) {
+            location = Math.max(location, num[i] + i);
+            if (i == end) {
+                res++;
+                end = location;
             }
         }
 
-        return result;
+        return -1;
     }
 
     public static int jump(int[] nums) {
@@ -57,6 +56,7 @@ public class FMedium45跳跃游戏 {
         int end = 0;
         int res = 0;
         for (int i = 0; i < nums.length - 1; i++) {
+            // 获取当前 步伐 能跳跃到的最远距离
             location = Math.max(location, nums[i] + i);
             if (i == end) {
                 res++;
